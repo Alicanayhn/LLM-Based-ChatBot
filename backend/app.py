@@ -32,9 +32,9 @@ s3_client = boto3.client('s3',
 
 bucket_name = BUCKET_NAME
 
-response = s3_client.list_buckets()
-for bucket in response['Buckets']:
-    print(bucket)
+# response = s3_client.list_buckets()
+# for bucket in response['Buckets']:
+#     print(bucket)
 
 class User(Base):
     __tablename__ = 'users'
@@ -114,9 +114,16 @@ def upload_file():
         print(f"Dosya alınamadı, hata: {e}")
         return jsonify({"error":"Dosya Alınamadı"}), 400
     
+@app.route("/api/v1/admin/list-buckets")
 def list_buckets():
-    response = s3_client.list_buckets()
-    print(response)
+    response = s3_client.list_objects_v2(Bucket=bucket_name)
+
+    contents_keys = []
+
+    for contents in response['Contents']:
+        contents_keys.append(contents['Key'])
+    
+    return jsonify({"files": contents_keys})
 
 @app.route('/')
 def index():

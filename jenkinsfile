@@ -2,9 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Docker-control') {
             steps {
-                echo 'Hello World'
+                sh '''
+                    docker version
+                    docker info
+                    docker container ls
+                    docker network ls
+                '''
+            }
+        }
+        stage('Build'){
+            steps{
+                sh '''
+                    docker compose --up build
+                '''
             }
         }
     }
