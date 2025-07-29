@@ -99,3 +99,19 @@ async function upload_file() {
       }
 
 }
+
+async function list_buckets() {
+    try{  
+      const res = await fetch('/api/v1/admin/list-buckets');
+      const data = await res.json();
+      const list = document.getElementById('fileList');
+      list.innerHTML = '';
+      data.files.forEach(file => {
+        const li = document.createElement('li');
+        li.textContent = file; 
+        list.appendChild(li);
+      });   
+    }catch(error){
+      alert(error)
+    }
+}

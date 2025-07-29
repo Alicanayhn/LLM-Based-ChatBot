@@ -1,5 +1,7 @@
 from dotenv import load_dotenv
 import os
+from PyPDF2 import PdfReader
+from io import BytesIO
 import boto3
 
 load_dotenv()
@@ -18,3 +20,17 @@ response = s3_client.list_objects_v2(Bucket=bucket_name)
 
 for Contents in response['Contents']:
     print(Contents['Key'])
+
+Contents = response['Contents']
+
+print(Contents[0]['Key'])
+
+key = Contents[0]['Key']
+pdf = s3_client.get_object(Bucket=bucket_name,Key=key)['Body']
+
+# reader = PdfReader(BytesIO(pdf.read()))
+
+# for page in reader.pages:
+#     print(f"Text: {page.extract_text()}")
+
+print(type(pdf))
