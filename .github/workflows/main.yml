@@ -1,0 +1,25 @@
+name: Actions for llm
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+jobs:
+    DEV:
+        runs-on: ubuntu-latest
+        environment: DEV
+        
+        if: github.ref == 'refs/heads/dev'
+        steps:
+            - uses: actions/checkout@v4
+            - name: Build docker compose
+              run: docker compose up -- build -d
+
+            - name: Sleep 30 seconds
+              uses: jakejarvis/wait-action@master
+              with:
+                time: '60s'
+
+            - name: Compose stop
+              run: docker compose stop
