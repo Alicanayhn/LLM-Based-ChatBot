@@ -1,0 +1,75 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    background-color: #f0f0f0; 
+    font-family: Arial, sans-serif;
+}
+#classifi_header{
+    padding: 15px;
+    margin: 15px;
+    margin-left: 30px;
+}
+.card{
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 15px;
+    background-color: #f5f5f5;
+    padding: 25px;
+    width: 400px;
+}
+#button{
+    width: 75px;
+    height: 40px;
+    border-radius: 5px;
+    border-color: #ccc;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    margin-left: 40%;
+}
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+#file-upload {
+    display: none;
+}
+
+.custom-file-upload {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 35%;
+}
+
+#selected-file-name {
+    margin-top: 15px;
+    margin-left: 115px;
+    font-size: 14px;
+    color: #333;
+}
+
+.submit-button {
+    margin-top: 15px;
+    margin-left: 40%;
+    padding: 10px 20px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #1976D2;
+}

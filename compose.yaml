@@ -1,0 +1,51 @@
+services:
+  backend:
+    build: ./backend
+    container_name: llm-backend
+    environment:
+      - DATABASE_URL=postgresql://admin:admin@llm_db:5432/llm_db
+    networks:
+      - llm-backend-net
+    depends_on:
+      - db
+  
+  frontend:
+    build: ./frontend
+    container_name: llm-frontend
+    networks:
+      - llm-backend-net
+      - llm-frontend-net
+    ports:
+      - "3000:80"
+  
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    hostname: llm_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: llm_db
+    networks:
+      - llm-backend-net
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    networks:
+      - llm-backend-net
+      - llm-frontend-net
+    ports:
+      - "5050:80"
+
+volumes:
+  postgres_data:
+
+networks:
+  llm-backend-net:
+  llm-frontend-net:
