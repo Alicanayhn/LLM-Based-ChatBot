@@ -89,10 +89,10 @@ async function upload_file() {
 
         if(res.ok){
           const result = await res.json()
-          alert("Dosya Gönderimi başarılı:" + `${result.message}`)
+          alert("Dosya Gönderimi başarılı: " + `${result.message}`)
         }else{
           const result = await res.json()
-          alert("Dosya s3'e kaydedilemedi:" + `${result.error}`)
+          alert("Dosya s3'e kaydedilemedi: " + `${result.error}`)
         }
       }catch(error){
         alert("Hata:" + `${error}`)
