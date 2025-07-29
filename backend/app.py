@@ -26,17 +26,15 @@ AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 BUCKET_NAME = os.getenv("BUCKET_NAME")
 
-print(AWS_ACCESS_KEY_ID)
-
 s3_client = boto3.client('s3',
     aws_access_key_id=AWS_ACCESS_KEY_ID,
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 bucket_name = BUCKET_NAME
 
-# response = s3_client.list_buckets()
-
-# print(response)
+response = s3_client.list_buckets()
+for bucket in response['Buckets']:
+    print(bucket)
 
 class User(Base):
     __tablename__ = 'users'
@@ -109,13 +107,17 @@ def upload_file():
         try:
             s3_client.upload_fileobj(file,bucket_name,file.filename)
             print("S3' e kaydedildi")
-            return jsonify({"message": "Dosya S3'e kaydedild"})
+            return jsonify({"message": "Dosya S3'e kaydedildi"})
         except:
             return jsonify({"error":"S3'e kaydedilemedi"}), 400
     except Exception as e:
         print(f"Dosya alınamadı, hata: {e}")
         return jsonify({"error":"Dosya Alınamadı"}), 400
     
+def list_buckets():
+    response = s3_client.list_buckets()
+    print(response)
+
 @app.route('/')
 def index():
     return "Uygulama Index Html"
