@@ -12,7 +12,7 @@ pipeline {
                     docker info
                     docker container ls
                     docker network ls
-                    python --version
+                    python3 --version
                 '''
             }
         }
