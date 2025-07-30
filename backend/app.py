@@ -142,7 +142,7 @@ def take_file():
         # return jsonify({"message":"Object name alındı"})
 
     except:
-        return jsonify({"message":"Object name alınamadı"})
+        return jsonify({"message":"Object name alınamadı"}), 400
 
 @app.route('/')
 def index():
