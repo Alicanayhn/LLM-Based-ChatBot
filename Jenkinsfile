@@ -24,7 +24,7 @@ pipeline {
                     python --version
                     python -m venv $VENV
                     . $VENV/bin/activate
-                    pip install --upgrate pip
+                    pip install --upgrade pip
                     pip install -r backend/requirements.txt
                 '''
             }
