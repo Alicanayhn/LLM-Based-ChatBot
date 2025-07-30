@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.10'
+        }
+    }
     environment{
         VENV = 'venv'
     }
@@ -11,6 +15,7 @@ pipeline {
                     docker info
                     docker container ls
                     docker network ls
+                    python3 --version
                 '''
             }
         }
