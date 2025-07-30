@@ -34,10 +34,6 @@ s3_client = boto3.client('s3',
 
 bucket_name = BUCKET_NAME
 
-# response = s3_client.list_buckets()
-# for bucket in response['Buckets']:
-#     print(bucket)
-
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer,primary_key=True)
