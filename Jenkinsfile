@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment{
+        VENV = 'venv'
+    }
     stages {
         stage('Docker-control') {
             steps {
@@ -12,10 +14,13 @@ pipeline {
                 '''
             }
         }
-        stage('Install requirements'){
-            steps{
+        stage('Set env and Install requirements') {
+            steps {
                 sh '''
-                    pip install -r backend/requirement.txt
+                    python3 -m venv $VENV
+                    . $VENV/bin/activate
+                    pip install --upgrade pip
+                    pip install -r backend/requirements.txt
                 '''
             }
         }
