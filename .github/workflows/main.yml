@@ -6,23 +6,42 @@ on:
       - main
       - dev
 jobs:
-    DEV:
-        runs-on: ubuntu-latest
-        environment: DEV
+    # DEV:
+    #     runs-on: ubuntu-latest
+    #     environment: DEV
         
-        if: github.ref == 'refs/heads/dev'
+    #     if: github.ref == 'refs/heads/dev'
+    #     steps:
+    #         - uses: actions/checkout@v4
+    #         - name: Build docker compose
+    #           run: docker compose up --build -d
+
+    #         # - name: Url deneme
+    #         #   run: curl -v http://localhost:3000 
+
+    #         - name: Sleep 30 seconds
+    #           uses: jakejarvis/wait-action@master
+    #           with:
+    #             time: '30s'
+
+    #         - name: Compose stop
+    #           run: docker compose stop
+
+    TEST:
+        runs-on: ubuntu-latest
+        environment: TEST
+
+        if: github.ref == 'refs/heads/test'
         steps:
             - uses: actions/checkout@v4
-            - name: Build docker compose
-              run: docker compose up --build -d
 
-            # - name: Url deneme
-            #   run: curl -v http://localhost:3000 
-
-            - name: Sleep 30 seconds
-              uses: jakejarvis/wait-action@master
+            - name: Get Python
+              uses: actions/setup-python@v5 
               with:
-                time: '30s'
+                python-version: '3.12' 
+            
+            - name: Install requirements
+              run: pip install -r backend/requirements.txt
 
-            - name: Compose stop
-              run: docker compose stop
+            - name: Run Test Script
+              run: pytest backend/test_app.py
