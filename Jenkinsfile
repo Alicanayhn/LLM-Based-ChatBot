@@ -15,7 +15,7 @@ pipeline {
                 '''
             }
         }
-        stage('Python İşlemleri') {
+        stage('TEST') {
             agent {
                 docker { image 'python:3.10' }
             }
@@ -26,12 +26,6 @@ pipeline {
                     . $VENV/bin/activate
                     pip install --upgrade pip
                     pip install -r backend/requirements.txt
-                '''
-            }
-        }
-        stage('TEST'){
-            steps{
-                sh'''
                     pytest -v backend/test_app.py
                 '''
             }
