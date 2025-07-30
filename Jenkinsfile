@@ -20,8 +20,13 @@ pipeline {
                 docker { image 'python:3.10' }
             }
             steps {
-                sh 'python --version'
-                sh 'pip install -r backend/requirements.txt'
+                sh '''
+                    python --version
+                    python -m venv $VENV
+                    . $VENV/bin/activate
+                    pip install --upgrate pip
+                    pip install -r backend/requirements.txt
+                '''
             }
         }
         // stage('Set env and Install requirements') {
