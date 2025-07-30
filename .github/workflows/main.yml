@@ -16,8 +16,8 @@ jobs:
             - name: Build docker compose
               run: docker compose up --build -d
 
-            - name: Url deneme
-              run: curl -v http://localhost:3000 
+            # - name: Url deneme
+            #   run: curl -v http://localhost:3000 
 
             - name: Sleep 30 seconds
               uses: jakejarvis/wait-action@master

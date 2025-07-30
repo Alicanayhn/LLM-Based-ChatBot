@@ -5,6 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base,sessionmaker
 from sqlalchemy import Column, Integer, String
 import boto3
+from io import BytesIO
+from PyPDF2 import PdfReader
 from dotenv import load_dotenv
 
 app = Flask(__name__)
@@ -114,7 +116,7 @@ def upload_file():
         print(f"Dosya alınamadı, hata: {e}")
         return jsonify({"error":"Dosya Alınamadı"}), 400
     
-@app.route("/api/v1/admin/list-buckets")
+@app.route("/api/v1/admin/list-buckets", methods=["GET"])
 def list_buckets():
     response = s3_client.list_objects_v2(Bucket=bucket_name)
 
@@ -124,6 +126,27 @@ def list_buckets():
         contents_keys.append(contents['Key'])
     
     return jsonify({"files": contents_keys})
+
+@app.route("/api/v1/admin/object-name",methods=["POST"])
+def take_file():
+    try:
+        data = request.get_json()
+        object_name = data.get('object_name')
+        print(object_name)
+        try:
+            pdf = s3_client.get_object(Bucket=bucket_name,Key=object_name)['Body']
+            reader = PdfReader(BytesIO(pdf.read()))
+
+            for page in reader.pages:
+                print(f"Text: {page.extract_text()}")
+                
+            return jsonify({"message":"pdf alındı"})
+        except Exception as e:
+            return jsonify({"message": f"pdf alınamadı, hata {e}"})
+        # return jsonify({"message":"Object name alındı"})
+
+    except:
+        return jsonify({"message":"Object name alınamadı"})
 
 @app.route('/')
 def index():
