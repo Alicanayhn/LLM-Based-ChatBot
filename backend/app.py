@@ -14,7 +14,7 @@ app = Flask(__name__)
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 try:
-    engine = create_engine(DATABASE_URL)
+    engine = create_engine('postgresql://admin:admin@llm_db:5432/llm_db')
     print('Baglanti basarili')
 except Exception as e:
     print(f'Hata {e}')
@@ -33,10 +33,6 @@ s3_client = boto3.client('s3',
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 bucket_name = BUCKET_NAME
-
-# response = s3_client.list_buckets()
-# for bucket in response['Buckets']:
-#     print(bucket)
 
 class User(Base):
     __tablename__ = 'users'
