@@ -20,7 +20,8 @@ pipeline {
                 docker { image 'python:3.10' }
             }
                 if(env.BRANCH_NAME == 'test'){
-                    sh '''
+                    steps{
+                        sh '''
                         python --version
                         python -m venv $VENV
                         . $VENV/bin/activate
@@ -28,6 +29,7 @@ pipeline {
                         pip install -r backend/requirements.txt
                         pytest -v backend/test_app.py
                     '''
+                    }
                 }
             
         }
