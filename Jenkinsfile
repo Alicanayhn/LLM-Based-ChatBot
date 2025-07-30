@@ -32,7 +32,6 @@ pipeline {
         stage('TEST'){
             steps{
                 sh'''
-                    . $VENV/bin/activate
                     pytest -v backend/test_app.py
                 '''
             }
