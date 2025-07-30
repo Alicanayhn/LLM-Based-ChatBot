@@ -15,7 +15,7 @@ pipeline {
         stage('Build'){
             steps{
                 sh '''
-                    docker compose up --build -d
+                    pytest -v backend/test_ap.py
                 '''
             }
         }
