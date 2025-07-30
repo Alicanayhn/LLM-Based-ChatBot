@@ -12,8 +12,16 @@ pipeline {
                     docker info
                     docker container ls
                     docker network ls
-                    python3 --version
                 '''
+            }
+        }
+        stage('Python İşlemleri') {
+            agent {
+                docker { image 'python:3.10' }
+            }
+            steps {
+                sh 'python --version'
+                sh 'pip install -r backend/requirements.txt'
             }
         }
         // stage('Set env and Install requirements') {
