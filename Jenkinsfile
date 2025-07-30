@@ -1,9 +1,6 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.10'
-        }
-    }
+    agent any
+    
     environment{
         VENV = 'venv'
     }
@@ -19,15 +16,15 @@ pipeline {
                 '''
             }
         }
-        stage('Set env and Install requirements') {
-            steps {
-                sh '''
-                    python -m venv $VENV
-                    . $VENV/bin/activate
-                    pip install --upgrade pip
-                    pip install -r backend/requirements.txt
-                '''
-            }
-        }
+        // stage('Set env and Install requirements') {
+        //     steps {
+        //         sh '''
+        //             python -m venv $VENV
+        //             . $VENV/bin/activate
+        //             pip install --upgrade pip
+        //             pip install -r backend/requirements.txt
+        //         '''
+        //     }
+        // }
     }
 }
