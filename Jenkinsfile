@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     environment{
         VENV = 'venv'
     }
@@ -12,7 +12,7 @@ pipeline {
                     docker info
                     docker container ls
                     docker network ls
-                    python3 --version
+                    python --version
                 '''
             }
         }
