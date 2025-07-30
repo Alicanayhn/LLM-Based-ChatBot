@@ -19,7 +19,6 @@ pipeline {
             agent {
                 docker { image 'python:3.10' }
             }
-            steps {
                 if(env.BRANCH_NAME == 'test'){
                     sh '''
                         python --version
@@ -30,7 +29,7 @@ pipeline {
                         pytest -v backend/test_app.py
                     '''
                 }
-            }
+            
         }
     }
 }
