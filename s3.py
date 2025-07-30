@@ -26,11 +26,11 @@ Contents = response['Contents']
 print(Contents[0]['Key'])
 
 key = Contents[0]['Key']
-pdf = s3_client.get_object(Bucket=bucket_name,Key=key)['Body']
+pdf = s3_client.get_object(Bucket=bucket_name,Key="CV Ali Can Ayhan #1.pdf (2).pdf")['Body']
 
-# reader = PdfReader(BytesIO(pdf.read()))
+reader = PdfReader(BytesIO(pdf.read()))
 
-# for page in reader.pages:
-#     print(f"Text: {page.extract_text()}")
+for page in reader.pages:
+    print(f"Text: {page.extract_text()}")
 
 print(type(pdf))
