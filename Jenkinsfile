@@ -12,10 +12,10 @@ pipeline {
                 '''
             }
         }
-        stage('Build'){
+        stage('Install requirements'){
             steps{
                 sh '''
-                    pytest -v backend/test_ap.py
+                    pip install -r backend/requirement.txt
                 '''
             }
         }
