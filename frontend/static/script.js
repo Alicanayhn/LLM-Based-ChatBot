@@ -138,6 +138,5 @@ async function send_object_name() {
     })
 
     const message = await res.json()
-
     alert(`${message.message}`)
 }
