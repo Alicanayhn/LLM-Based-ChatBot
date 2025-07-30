@@ -14,7 +14,7 @@ app = Flask(__name__)
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 try:
-    engine = create_engine(DATABASE_URL)
+    engine = create_engine('postgresql://admin:admin@llm_db:5432/llm_db')
     print('Baglanti basarili')
 except Exception as e:
     print(f'Hata {e}')
