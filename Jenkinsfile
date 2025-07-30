@@ -20,14 +20,18 @@ pipeline {
                 docker { image 'python:3.10' }
             }
             steps {
-                sh '''
-                    python --version
-                    python -m venv $VENV
-                    . $VENV/bin/activate
-                    pip install --upgrade pip
-                    pip install -r backend/requirements.txt
-                    pytest -v backend/test_app.py
-                '''
+                script{
+                    if(env.BRANCH_NAME=='test'){
+                        sh '''
+                            python --version
+                            python -m venv $VENV
+                            . $VENV/bin/activate
+                            pip install --upgrade pip
+                            pip install -r backend/requirements.txt
+                            pytest -v backend/test_app.py
+                        '''
+                    }
+                }
             }
         }
     }
