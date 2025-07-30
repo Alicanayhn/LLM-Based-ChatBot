@@ -29,15 +29,12 @@ pipeline {
                 '''
             }
         }
-        // stage('Set env and Install requirements') {
-        //     steps {
-        //         sh '''
-        //             python -m venv $VENV
-        //             . $VENV/bin/activate
-        //             pip install --upgrade pip
-        //             pip install -r backend/requirements.txt
-        //         '''
-        //     }
-        // }
-    }
+        stage('TEST'){
+            steps{
+                sh'''
+                    . $VENV/bin/activate
+                    pytest -v backend/test_app.py
+                '''
+            }
+        }
 }
