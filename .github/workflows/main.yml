@@ -7,26 +7,7 @@ on:
       - dev
       - test
 jobs:
-    DEV:
-      runs-on: ubuntu-latest
-      if: github.ref == 'refs/heads/dev' 
-      steps:
-        - uses: actions/checkout@v4
-
-        - name: Create .env file from secret
-          run: echo "${{ secrets.ENV_FILE }}" > backend/.env
-
-        - name: Build docker compose
-          run: docker compose up --build -d
-
-        - name: Sleep 30 seconds
-          uses: jakejarvis/wait-action@master
-          with:
-            time: '30s'
-
-        - name: Compose stop
-          run: docker compose stop
-          
+  
     TEST:
         runs-on: ubuntu-latest
         environment: TEST
