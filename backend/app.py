@@ -267,6 +267,7 @@ def take_file():
 def get_fine_tune_status():
     return jsonify(finetune_status)
 
+
 MODEL_URI = "models:/distilgpt2-chatbot@prod"
 
 model = mlflow.pytorch.load_model(MODEL_URI)
