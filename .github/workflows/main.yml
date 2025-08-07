@@ -31,5 +31,5 @@ jobs:
               run: pip install -r ./backend/tests/requirements.txt
 
             - name: Run Test Script
-              run: pytest -v backend/tests/test_app.py
+              run: pytest -v backend/test_app.py
 
