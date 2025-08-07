@@ -1,1 +1,2 @@
 .env
+distilbert/distigpt2/model.safetensors
