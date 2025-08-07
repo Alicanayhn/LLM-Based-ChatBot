@@ -28,6 +28,7 @@ pipeline {
                     pip install -r backend/requirements.txt
                     pytest -v backend/test_app.py
                 '''
+                
             }
         }
     }

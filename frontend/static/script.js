@@ -141,3 +141,28 @@ async function send_object_name() {
 
     alert(`${message.message}`)
 }
+
+async function chatbot() {
+    const prompt = document.getElementById('promptInput').value.trim();
+    const responseBox = document.getElementById("responseBox");
+
+    if (!prompt.trim()) {
+      responseBox.style.display = "block";        
+      responseBox.innerText = "Lütfen bir şeyler yaz.";
+      return;
+    }
+
+    responseBox.style.display = "block";
+    responseBox.innerText = "Yanıt bekleniyor...";
+
+    const res = await fetch('/api/v1/users/chatbot',{
+      method: 'POST',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({prompt : prompt})
+    });
+
+    const data = await res.json();
+    responseBox.innerText = data.response || "Cevap alınamadı.";
+}
