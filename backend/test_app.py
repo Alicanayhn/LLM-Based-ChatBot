@@ -2,7 +2,6 @@ import pytest
 from io import BytesIO
 from base64 import b64encode
 import json
-
 from app import app, create_table, SessionLocal, User
 
 @pytest.fixture
