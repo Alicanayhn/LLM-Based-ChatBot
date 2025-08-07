@@ -23,7 +23,7 @@ app = Flask(__name__)
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
 # mlflow.set_tracking_uri("http://mlflow-server:5000")  docker içinde 5000 dışarda 5001
-mlflow.set_tracking_uri("http://localhost:5001")
+# mlflow.set_tracking_uri("http://localhost:5001")
 mlflow.set_experiment("distilgpt2-experiment")
 
 try:
