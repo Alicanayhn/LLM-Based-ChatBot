@@ -42,6 +42,20 @@ services:
       - llm-frontend-net
     ports:
       - "5050:80"
+  mlflow:
+    build: ./mlflow
+    image: mlflow_server
+    container_name: mlflow-server
+    ports:
+      - "5001:5000"
+
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - db
+    networks:
+      - llm-backend-net
+    command: mlflow server --backend-store-uri postgresql://admin:admin@llm_db:5432/llm_db --default-artifact-root s3://bucketllm-artifacts --host 0.0.0.0
 
 volumes:
   postgres_data:
