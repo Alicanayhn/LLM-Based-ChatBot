@@ -290,8 +290,6 @@ def chatbot():
         "response": response_text
     })
 
-
-
 @app.route('/')
 def index():
     return "Uygulama Index Html"
