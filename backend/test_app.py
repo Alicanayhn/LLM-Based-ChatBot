@@ -37,12 +37,11 @@ def test_login(client):
     assert b'role' in res.data
 
 def test_upload_file(client):
-    # Fake PDF dosyası oluştur
     data = {
         'file': (BytesIO(b"Fake PDF Data"), "testfile.pdf")
     }
     res = client.post('/api/v1/users/files', data=data, content_type='multipart/form-data')
-    assert res.status_code == 200 or res.status_code == 400  # S3 erişimi yoksa 400 dönebilir
+    assert res.status_code == 200 or res.status_code == 400  
 
 def test_list_buckets(client):
     res = client.get('/api/v1/admin/list-buckets')
@@ -50,9 +49,7 @@ def test_list_buckets(client):
     assert b'files' in res.data
 
 def test_take_file(client):
-    # Test amaçlı örnek bir dosya adı gönder
     data = { "object_name": "SeyahatBilgiFormu.pdf" }
     res = client.post('/api/v1/admin/object-name', data=json.dumps(data), content_type='application/json')
-    # Hata veya başarı, önemli olan cevap dönmesi
     assert res.status_code == 200
 
