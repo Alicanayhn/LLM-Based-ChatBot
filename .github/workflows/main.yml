@@ -33,5 +33,17 @@ jobs:
             # - name: Run Test Script
             #   run: pytest -v backend/test_app.py
             
-            - name: Run Test Script
+            # - name: Run Test Script
+            #   run: docker compose run --rm backend pytest -v test_app.py
+
+            - name: Build services
+              run: docker compose build
+
+            - name: Start dependencies
+              run: docker compose up -d db mlflow
+
+            - name: Run tests inside backend container
               run: docker compose run --rm backend pytest -v test_app.py
+
+            - name: Stop services
+              run: docker compose down
