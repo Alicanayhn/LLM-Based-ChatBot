@@ -24,8 +24,8 @@ jobs:
             - name: Create .env file from secret
               run: echo "${{ secrets.ENV_FILE }}" > backend/.env
 
-            - name: Build docker compose
-              run: docker compose up --build -d
+            # - name: Build docker compose
+            #   run: docker compose up --build -d
                  
             - name: install requirements
               run: pip install -r ./backend/tests/requirements.txt
