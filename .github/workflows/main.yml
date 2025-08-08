@@ -30,6 +30,8 @@ jobs:
             - name: install requirements
               run: pip install -r ./backend/tests/requirements.txt
 
+            # - name: Run Test Script
+            #   run: pytest -v backend/test_app.py
+            
             - name: Run Test Script
-              run: pytest -v backend/test_app.py
-
+              run: docker compose run --rm pytest -v backend/test_app.py
