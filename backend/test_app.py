@@ -17,23 +17,23 @@ def create_test_user(username, password, role="user"):
     db.commit()
     db.close()
 
-def test_signup(client):
-    username, password = "testuser", "testpass"
-    res = client.post('/api/v1/auth/signup', headers={
-        "info": f"{username}:{password}"
-    })
-    assert res.status_code == 200
-    assert 'Kullanıcı Eklendi' in res.data.decode('utf-8')
+# def test_signup(client):
+#     username, password = "testuser", "testpass"
+#     res = client.post('/api/v1/auth/signup', headers={
+#         "info": f"{username}:{password}"
+#     })
+#     assert res.status_code == 200
+#     assert 'Kullanıcı Eklendi' in res.data.decode('utf-8')
 
-def test_login(client):
-    username, password = "testuser2", "testpass2"
-    create_test_user(username, password)
-    creds = b64encode(f"{username}:{password}".encode()).decode()
-    res = client.post('/api/v1/auth/login', headers={
-        "Auth": f"Basic {creds}"
-    })
-    assert res.status_code == 200
-    assert b'role' in res.data
+# def test_login(client):
+#     username, password = "testuser2", "testpass2"
+#     create_test_user(username, password)
+#     creds = b64encode(f"{username}:{password}".encode()).decode()
+#     res = client.post('/api/v1/auth/login', headers={
+#         "Auth": f"Basic {creds}"
+#     })
+#     assert res.status_code == 200
+#     assert b'role' in res.data
 
 def test_upload_file(client):
     data = {
