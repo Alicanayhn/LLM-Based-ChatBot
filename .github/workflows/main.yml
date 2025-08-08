@@ -27,8 +27,8 @@ jobs:
             # - name: Build docker compose
             #   run: docker compose up --build -d
                  
-            - name: install requirements
-              run: pip install -r ./backend/tests/requirements.txt
+            # - name: install requirements
+            #   run: pip install -r ./backend/tests/requirements.txt
 
             # - name: Run Test Script
             #   run: pytest -v backend/test_app.py
