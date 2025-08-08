@@ -34,4 +34,4 @@ jobs:
             #   run: pytest -v backend/test_app.py
             
             - name: Run Test Script
-              run: docker compose run --rm pytest -v backend/test_app.py
+              run: docker compose run --rm backend pytest -v test_app.py
