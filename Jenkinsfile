@@ -15,20 +15,26 @@ pipeline {
                 '''
             }
         }
-        stage('TEST') {
-            agent {
-                docker { image 'python:3.10' }
-            }
+        stage('Build') {
             steps{
                 sh '''
-                    python --version
-                    python -m venv $VENV
-                    . $VENV/bin/activate
-                    pip install --upgrade pip
-                    pip install -r backend/requirements.txt
-                    pytest -v backend/test_app.py
+                   docker compose build 
+                   docker compose up -d db mlflow
                 '''
-                
+            }
+        }
+        stage("Test"){
+            steps{
+                sh '''
+                    docker compose run --rm backend pytest -v test_app.py    
+                '''
+            }
+        }
+        stage("Down"){
+            steps{
+                sh '''
+                    docker compose down
+                '''
             }
         }
     }
