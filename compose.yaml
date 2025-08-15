@@ -2,13 +2,11 @@ services:
   backend:
     build: ./backend
     container_name: llm-backend
-    environment:
-      - DATABASE_URL=postgresql://admin:admin@llm_db:5432/llm_db
     networks:
       - llm-backend-net
     depends_on:
       - db
-  
+      - mlflow
   frontend:
     build: ./frontend
     container_name: llm-frontend
@@ -22,21 +20,19 @@ services:
     image: postgres:15
     container_name: postgres_db
     hostname: llm_db
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: llm_db
+    env_file:
+      - ./backend/.env
     networks:
       - llm-backend-net
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
   
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+    env_file:
+      - ./backend/.env
     networks:
       - llm-backend-net
       - llm-frontend-net
@@ -48,15 +44,15 @@ services:
     container_name: mlflow-server
     ports:
       - "5001:5000"
-
     env_file:
       - ./backend/.env
     depends_on:
       - db
     networks:
       - llm-backend-net
-    command: mlflow server --backend-store-uri postgresql://admin:admin@llm_db:5432/llm_db --default-artifact-root s3://bucketllm-artifacts --host 0.0.0.0
-
+    # command: mlflow server --backend-store-uri postgresql://admin:admin@llm_db:5432/llm_db --default-artifact-root s3://bucketllm-artifacts --host 0.0.0.0
+    command: sh -lc 'mlflow server --backend-store-uri "$$DATABASE_URL" --default-artifact-root "$$MLFLOW_ARTIFACT_ROOT" --host "$${MLFLOW_HOST:-0.0.0.0}"'
+    
 volumes:
   postgres_data:
 

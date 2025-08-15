@@ -37,7 +37,7 @@ async function login() {
         if (data.role === "admin") {
           window.location.href = "admin.html";
         } else {
-          window.location.href = "user.html";
+          window.location.href = "chatbot.html";
         }
       } else {
         alert("Giriş başarısız. Kullanıcı adı veya şifre hatalı.");
@@ -67,7 +67,6 @@ async function signup() {
         if(res.ok){
             const message = await res.json()
             alert(`${message.message}`)
-            window.location.href = "index.html"
         }
     }catch(error){
         return alert("Hata:" + `${error}`)
