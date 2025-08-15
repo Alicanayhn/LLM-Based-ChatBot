@@ -3,7 +3,6 @@ name: Actions for llm
 on:
   push:
     branches:
-      - main
       - dev
 jobs:
   DEV:
