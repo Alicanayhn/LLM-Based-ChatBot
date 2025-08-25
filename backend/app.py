@@ -26,7 +26,7 @@ fp16_mode = torch.cuda.is_available()
 
 app = Flask(__name__)
 
-logging.basicConfig(filename="app.log",filemode="a",format="%(asctime)s - %(levelname)s - %(message)s",level=logging.INFO)
+logging.basicConfig(filename="logs/app.log",filemode="a",format="%(asctime)s - %(levelname)s - %(message)s",level=logging.INFO)
 logging.info("Ilk log tutuldu !")
 
 DATABASE_URL = os.getenv('DATABASE_URL')
@@ -100,6 +100,7 @@ def upload_file():
     
 @app.route("/api/v1/admin/list-buckets", methods=["GET"])
 def list_buckets():
+    logging.info("bucket listelendi")
     s3_client = boto3.client('s3',
         aws_access_key_id=AWS_ACCESS_KEY_ID,
         aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
@@ -122,13 +123,13 @@ def background_finetune(text):
         tokenizer.pad_token = tokenizer.eos_token
         tokenized_dataset = Preprocessing.prepare_dataset(dataset, tokenizer)
         ModelTraining.finetune(model, tokenizer, tokenized_dataset)
+        logging.info("finetuning bitti")
 
 @app.route("/api/v1/admin/object-name", methods=["POST"])
 def take_file():
     s3_client = boto3.client('s3',
         aws_access_key_id=AWS_ACCESS_KEY_ID,
         aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-
     try:
         data = request.get_json()
         object_name = data.get('object_name')
@@ -156,7 +157,7 @@ except Exception as e:
 
 @app.route("/api/v1/users/chatbot",methods=["POST"])
 def chatbot():
-
+    logging.info("Chatbot çalışıyor.")
     data = request.get_json()
     prompt_text = data.get("prompt")    
 
