@@ -1,3 +1,9 @@
+# Model
+backend/distilbert/distilgpt2/model.safetensors
+
+# Data 
+postgres_data/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
